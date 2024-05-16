@@ -18,7 +18,8 @@ from re import split
 from django.http import FileResponse
 import io
 from django.contrib.auth.decorators import login_required
-
+from django.shortcuts import render
+from questiongenerator import QuestionGenerator
 
 def home(request):
     card_list = Card.objects.all()  
@@ -36,12 +37,9 @@ def userregister(request):
         form = RegistrationForm(request.POST)
         if form.is_valid():
             email = form.cleaned_data['email']
-            # Check if the email is already registered
             if Account.objects.filter(email=email).exists():
                 messages.error(request, 'Email is already registered.')
                 return redirect('userregister')
-
-            # Extract cleaned data from the form
             first_name = form.cleaned_data['first_name']
             last_name = form.cleaned_data['last_name']
             phone_number = form.cleaned_data['phone_number']
@@ -52,11 +50,9 @@ def userregister(request):
             user.phone_number = phone_number
             user.save()
 
-            # Display a success message and redirect to login
             messages.success(request, 'Registration successful. You can now login.')
             return redirect('login')
     else:
-        # Handle GET request by creating an empty form
         form = RegistrationForm()
     
     context = {
@@ -132,29 +128,6 @@ def calculate_age_years(date_of_birth):
         age = today.year - date_of_birth.year - ((today.month, today.day) < (date_of_birth.month, date_of_birth.day))
         return age
     return None
-
-# def generate_questions(request):
-#     # Path to your text file
-#     text_file_path = '/home/marial/Documents/question_generator/articles/t.txt'
-#     with open(text_file_path, 'r') as file:
-#         text_content = file.read()
-#     qg = QuestionGenerator()
-#     qa_list = qg.generate(
-#         text_content,
-#         num_questions=10,
-#         answer_style='all',
-#         use_evaluator=True
-#     )
-#     context = {
-#         'qa_list': qa_list
-#     }
-#     return render(request, 'index.html', context)
-
-
-
-
-from django.shortcuts import render
-from questiongenerator import QuestionGenerator
 
 def generate_questions(request):
     if request.method == 'POST':
