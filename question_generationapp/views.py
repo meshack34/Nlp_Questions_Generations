@@ -153,38 +153,10 @@ def calculate_age_years(date_of_birth):
 
 
 
-# from django.shortcuts import render
-# from questiongenerator import QuestionGenerator
-
-# def generate_questions(request):
-#     if request.method == 'POST':
-#         text_content = request.POST.get('text_content', '')
-#         qg = QuestionGenerator()
-#         qa_list = qg.generate(
-#             text_content,
-#             num_questions=10,
-#             answer_style='all',
-#             use_evaluator=True
-#         )
-#         # Separate questions based on their type
-#         questions_with_answers = [qa for qa in qa_list if 'answer' in qa]
-#         open_ended_questions = [qa for qa in qa_list if 'answer' not in qa]
-#         context = {
-#             'text_content': text_content,
-#             'questions_with_answers': questions_with_answers,
-#             'open_ended_questions': open_ended_questions,
-#         }
-#     else:
-#         context = {}
-    
-#     return render(request, 'users/user_dashboard.html', context)
-
-
 from django.shortcuts import render
 from questiongenerator import QuestionGenerator
 
 def generate_questions(request):
-    display_type = request.POST.get('display_type')
     if request.method == 'POST':
         text_content = request.POST.get('text_content', '')
         qg = QuestionGenerator()
@@ -201,9 +173,10 @@ def generate_questions(request):
             'text_content': text_content,
             'questions_with_answers': questions_with_answers,
             'open_ended_questions': open_ended_questions,
-            'display_type': display_type,
         }
     else:
         context = {}
     
     return render(request, 'users/user_dashboard.html', context)
+
+
