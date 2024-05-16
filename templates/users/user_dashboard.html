@@ -6,13 +6,15 @@
     <div class="container-fluid">
         <div class="row">
             {% include 'users/usersidenav.html' %}
-            <div class="col-md-7 col-lg-8 col-xl-9">
-                <h1>Generate Questions</h1>
+            <div class="col-md-7 col-lg-8 col-xl-9" style="background-color: #f8f9fa; padding: 20px; border-radius: 5px;">
+                <h1 style="color: #343a40; margin-bottom: 20px;">Generate Questions</h1>
                 <form method="post">
                     {% csrf_token %}
-                    <label for="text_content">Enter Text:</label><br>
-                    <textarea id="text_content" name="text_content" rows="4" cols="50">{{ text_content }}</textarea><br><br>
-                    <input type="submit" value="Generate Questions">
+                    <div class="form-group">
+                        <label for="text_content">Enter Text:</label>
+                        <textarea class="form-control" id="text_content" name="text_content" rows="4" cols="50">{{ text_content }}</textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Generate Questions</button>
                 </form>
                 
                 {% if questions_with_answers %}
