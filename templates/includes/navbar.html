@@ -80,9 +80,9 @@
                     {% if user.is_authenticated %}
                         <p class="contact-header" style="color: white;">Welcome | {{ user.first_name }}</p>
                         {% if user.user_type == 'user' %}
-                            <p class="contact-info-header"><a href="{% url 'dashboard' %}" style="color: white;">Dashboard</a></p>
+                            <p class="contact-info-header"><a href="{% url 'generate_question' %}" style="color: white;">Dashboard</a></p>
                         {% else %}
-                            <p class="contact-info-header"><a href="{% url 'dashboard' %}" style="color: white;">Dashboard</a></p>
+                            <p class="contact-info-header"><a href="{% url 'generate_question' %}" style="color: white;">Dashboard</a></p>
                         {% endif %}
                     {% endif %}
                 </div>

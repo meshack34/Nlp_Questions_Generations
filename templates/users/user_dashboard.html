@@ -15,20 +15,8 @@
                     <input type="submit" value="Generate Questions">
                 </form>
                 
-                <form method="post">
-                    {% csrf_token %}
-                    <input type="hidden" name="display_type" value="answered">
-                    <button type="submit">Show Answered Questions</button>
-                </form>
-                
-                <form method="post">
-                    {% csrf_token %}
-                    <input type="hidden" name="display_type" value="open_ended">
-                    <button type="submit">Show Open-ended Questions</button>
-                </form>
-                
-                {% if display_type == "answered" and questions_with_answers %}
-                <h2>Answered Questions</h2>
+                {% if questions_with_answers %}
+                <h2>Questions with Answers</h2>
                 <ul>
                     {% for qa in questions_with_answers %}
                     <li>
@@ -39,7 +27,7 @@
                 </ul>
                 {% endif %}
                 
-                {% if display_type == "open_ended" and open_ended_questions %}
+                {% if open_ended_questions %}
                 <h2>Open-ended Questions</h2>
                 <ul>
                     {% for qa in open_ended_questions %}
