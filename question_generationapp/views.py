@@ -101,34 +101,6 @@ def dashboard(request):
         pass
 
 
-
-def patients_profile(request):
-    current_user = request.user
-    current_patient = User.objects.get(user=current_user)
-
-    if request.method == 'POST' and current_user.is_authenticated:
-        form = PatientForm(request.POST, request.FILES, instance=current_patient)
-        if form.is_valid():
-            patient = form.save(commit=False)
-            patient.age_years = calculate_age_years(patient.date_of_birth)
-            patient.save()  
-            return redirect('patient_dashboard')
-    else:
-        form = PatientForm(instance=current_patient)
-
-    context = {
-        'patient': current_patient,
-        'form': form,
-    }
-    return render(request, 'patients/patients-profile.html', context)
-
-def calculate_age_years(date_of_birth):
-    today = date.today()
-    if date_of_birth:
-        age = today.year - date_of_birth.year - ((today.month, today.day) < (date_of_birth.month, date_of_birth.day))
-        return age
-    return None
-
 def generate_questions(request):
     if request.method == 'POST':
         text_content = request.POST.get('text_content', '')

@@ -1,3 +1,4 @@
+#questiongenerator.py
 import en_core_web_sm
 import json
 import numpy as np
@@ -247,7 +248,8 @@ class QuestionGenerator:
         if len(matches) < num_choices:
             choices = matches
             pool = pool.difference(set(choices))
-            choices.extend(random.sample(pool, num_choices - len(choices)))
+            choices.extend(random.sample(list(pool), num_choices - len(choices)))
+
         else:
             choices = random.sample(matches, num_choices)
 
