@@ -21,6 +21,10 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from questiongenerator import QuestionGenerator
 
+
+
+
+
 def home(request):
     card_list = Card.objects.all()  
     context = {
