@@ -1,6 +1,4 @@
 #qg_train.py
-
-
 import argparse
 import datasets
 from transformers import T5Config, T5ForConditionalGeneration, T5Tokenizer

@@ -1,6 +1,4 @@
 #qa_eval_train.py
-
-
 import argparse
 import datasets
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
@@ -9,7 +7,6 @@ from training.dataset import QAEvalDataset
 from trainer import Trainer
 
 spacy.prefer_gpu()
-
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
