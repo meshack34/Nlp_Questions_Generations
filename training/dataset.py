@@ -94,12 +94,10 @@ class QAEvalDataset(torch.utils.data.Dataset):
     def corrupt(self, question: str, answer: str) -> Tuple[str, str]:
         doc = self.spacy_tokenizer(question)
         if len(doc.ents) > 1:
-            # Replace all entities in the sentence with the same thing
             copy_ent = str(random.choice(doc.ents))
             for ent in doc.ents:
                 question = question.replace(str(ent), copy_ent)
         elif len(doc.ents) == 1:
-            # Replace the answer with an entity from the question
             answer = str(doc.ents[0])
         else:
             question, answer = self.shuffle(question, answer)
