@@ -58,3 +58,17 @@ class TextForm(forms.Form):
         max_length=1000,  
         help_text='Maximum 1000 characters'  
     )
+# from django import forms
+# from django import forms
+
+# class TextContentForm(forms.Form):
+#     text_content = forms.CharField(widget=forms.Textarea, label='Text Content')
+#     question_type = forms.ChoiceField(
+#         choices=[('with_answers', 'Questions with Answers'), ('without_answers', 'Questions without Answers')],
+#         label='Select Question Type',
+#         widget=forms.RadioSelect
+#     )
+from django import forms
+
+class TextContentForm(forms.Form):
+    text_content = forms.CharField(widget=forms.Textarea, label='Text Content')

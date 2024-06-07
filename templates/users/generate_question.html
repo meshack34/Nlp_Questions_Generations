@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Questions</title>
+   
+</head>
+<body>
+    <h1>Generate Questions from Text</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Generate Questions</button>
+    </form>
+
+    {% if questions %}
+        <h2>Generated Questions</h2>
+        <ul>
+            {% for question in questions %}
+                <li>
+                    {{ question.question }}
+                    {% if question_type == 'with_answers' %}
+                        <ul>
+                            <li>Answer: {{ question.answer }}</li>
+                        </ul>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>

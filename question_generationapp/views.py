@@ -115,7 +115,6 @@ def generate_questions(request):
             answer_style='all',
             use_evaluator=True
         )
-        # Separate questions based on their type
         questions_with_answers = [qa for qa in qa_list if 'answer' in qa]
         open_ended_questions = [qa for qa in qa_list if 'answer' not in qa]
         context = {
@@ -129,3 +128,83 @@ def generate_questions(request):
     return render(request, 'users/user_dashboard.html', context)
 
 
+
+from django.shortcuts import render
+from .forms import TextContentForm
+from questiongenerator import QuestionGenerator  # Ensure this import is correct based on your project structure
+
+from django.shortcuts import render
+from .forms import TextContentForm
+from questiongenerator import QuestionGenerator  # Ensure this import is correct based on your project structure
+
+def generate_questions_view(request):
+    if request.method == 'POST':
+        form = TextContentForm(request.POST)
+        if form.is_valid():
+            text_content = form.cleaned_data['text_content']
+            question_type = request.POST.get('question_type', '')
+
+            qg = QuestionGenerator()
+            qa_list = qg.generate(
+                text_content,
+                num_questions=10,
+                answer_style='all',
+                use_evaluator=True
+            )
+
+            simple_answer_questions = []
+            multiple_choice_questions = []
+
+            for qa in qa_list:
+                if 'answer' in qa:
+                    if isinstance(qa['answer'], list):
+                        multiple_choice_questions.append(qa)
+                    else:
+                        simple_answer_questions.append(qa)
+
+            if question_type == 'with_answers':
+                questions = simple_answer_questions
+            else:
+                questions = multiple_choice_questions
+
+            return render(request, 'users/generate_question.html', {
+                'form': form,
+                'questions': questions,
+                'question_type': question_type,
+            })
+    else:
+        form = TextContentForm()
+    return render(request, 'users/generate_question.html', {'form': form})
+
+
+# def generate_questions_view(request):
+#     if request.method == 'POST':
+#         form = TextContentForm(request.POST)
+#         if form.is_valid():
+#             text_content = form.cleaned_data['text_content']
+#             question_type = form.cleaned_data['question_type']
+
+#             qg = QuestionGenerator()
+#             qa_list = qg.generate(
+#                 text_content,
+#                 num_questions=10,
+#                 answer_style='all',
+#                 use_evaluator=True
+#             )
+
+#             questions_with_answers = [{'question': qa['question'], 'answer': qa['answer']} for qa in qa_list if 'answer' in qa]
+#             open_ended_questions = [{'question': qa['question']} for qa in qa_list if 'answer' not in qa]
+
+#             if question_type == 'with_answers':
+#                 questions = questions_with_answers
+#             else:
+#                 questions = open_ended_questions
+
+#             return render(request, 'users/generate_question.html', {
+#                 'form': form,
+#                 'questions': questions,
+#                 'question_type': question_type,
+#             })
+#     else:
+#         form = TextContentForm()
+#     return render(request, 'users/generate_question.html', {'form': form})
