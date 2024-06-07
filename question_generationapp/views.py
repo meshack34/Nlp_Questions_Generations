@@ -137,6 +137,11 @@ from django.shortcuts import render
 from .forms import TextContentForm
 from questiongenerator import QuestionGenerator  # Ensure this import is correct based on your project structure
 
+
+from django.shortcuts import render
+from .forms import TextContentForm
+from questiongenerator import QuestionGenerator
+
 def generate_questions_view(request):
     if request.method == 'POST':
         form = TextContentForm(request.POST)
@@ -167,15 +172,14 @@ def generate_questions_view(request):
             else:
                 questions = multiple_choice_questions
 
-            return render(request, 'users/generate_question.html', {
+            return render(request, 'users/user_dashboard.html', {
                 'form': form,
                 'questions': questions,
                 'question_type': question_type,
             })
     else:
         form = TextContentForm()
-    return render(request, 'users/generate_question.html', {'form': form})
-
+    return render(request, 'users/user_dashboard.html', {'form': form})
 
 # def generate_questions_view(request):
 #     if request.method == 'POST':
