@@ -1,3 +1,5 @@
+# In need of such project contact meshackkimutai34@gmail.com or whatapp +254718908494
+
 # Online Exam Generator  
 ### 
 The "Online Exam Generator" is a user-friendly web-based platform built on Django, a high-level Python web framework. It simplifies the creation, management, and administration of online exams with its intuitive interface and robust functionality. Educators and students benefit from features such as quiz creation, exam customization, performance analytics, and secure proctoring options. Leveraging Django's capabilities along with Django templates for display, the platform ensures seamless interaction and usability for users.
